@@ -185,6 +185,8 @@ apply(e[, -1], 1, function(i) {length(unique) })
 
 # graphical eval
 
+png(file = 'figures/spatial-simulation-same-rmse.png', width = 1200, height = 800, res = 90)
+
 levelplot(
   z, 
   col.regions = viridis,
@@ -192,10 +194,11 @@ levelplot(
   panel = function(...) {
     panel.levelplot(...)
     sp.points(s.sp, col = 'black', cex = 0.5, pch = 16)
-  }
+  },
+  layout = c(3,2)
 )
 
-
+dev.off()
 
 ### do the patterns hold up after aggregation?
 
