@@ -31,7 +31,7 @@ After our last discussion I made some changes to the application of "information
 
 Roughly normal distribution of PII across ~23k soils
 
-![](soil-profiles/figures/OSD-soilorder-PII.png)
+![](../soil-profiles/figures/OSD-soilorder-PII.png)
 
 There are fairly intuitive patterns across multiple levels of Soil Taxonomy.
   
@@ -55,13 +55,13 @@ Here are a couple examples, applied to soil profile data. The "Profile Complexit
 
 Profile #6 is made up of uniform random values, profile #7 is a sorted version of #6.
 
-![](soil-profiles/figures/simple-demonstration.png)
+![](../soil-profiles/figures/simple-demonstration.png)
 
 We don't have to use gzip, but its ubiquitous use and availability makes it an ideal candidate. I too wonder about the relationship between "information" ~ gzip size. Is it continuous? We would need some detailed investigation to be sure, maybe even consulting with a CS expert. Simple experiments in R via memCompress() are helpful, but I'd rather not have to reverse-engineer it.
 
 gzip will work on any data source that can be represented as text or raw bytes. Check this out:
 
-![](compression-information-content/figures/lorem-test.png)
+![](../compression-information-content/figures/lorem-test.png)
 
 This tracks intuition and the curves appear continuous. Note log-log scales.
 
@@ -118,7 +118,7 @@ identifying model utility compared to all possible inputs (model generalization)
 
 I work a lot with spatial models, and often wonder about how to best quantify the "value" of some new map vs. an existing one, given several sources of ground truth. Also, I've been tinkering with the idea of an adaptation of Anscombe's Quartet, but for spatial models. Consider "true" data (top-left) and 5 spatial models that all share the same validation metrics (RMSE) and apparent "accuracy", yet describe drastically different patterns in space:
 
-![](maps-gridded/figures/spatial-simulation-same-rmse.png)
+![](../maps-gridded/figures/spatial-simulation-same-rmse.png)
 
 
 Thanks for the suggestions and tip on EMD. I'd have to think some more about how one would figure out how to "push" information on a pixel-basis from one map to another. Reminds me of estimating a rotation/scaling from one matrix to another. This is what happens when I do a lot of dabbling without a formal education.
@@ -147,7 +147,7 @@ I started messing around with using "information" content as estimated by gzip c
 
 Here are some examples of gzip compression size (KB) and (global) Moran's I computed for several neutral landscapes (https://besjournals.onlinelibrary.wiley.com/doi/10.1111/2041-210X.13076). Assuming each map represents something, and is not completely "wrong", these metrics might be useful for comparing information content. Or at least help calibrate us to baseline levels of information, so that when we aggregate these kind of maps to coarser and coarser resolutions we can see where information is lost. This is related to the MRA idea, will elaborate below.
 
-![](maps-gridded/figures/NLM-metrics-01.png)
+![](../maps-gridded/figures/NLM-metrics-01.png)
 
 Gzip size and Moran's I aren't nearly enough since:
   * Gzip size increases as the spatial pattern approaches white noise (0 "useful" information)
@@ -156,12 +156,12 @@ Gzip size and Moran's I aren't nearly enough since:
 
 Same idea, but with three levels of soil mapping detail. From left → right 1:250,000, 1:16,000, and a yet-to-be-determined scale. These are just map unit IDs, a thematic maps of e.g. soil pH would be more informative.
 
-![](maps-gridded/figures/coweeta-metrics-01.png)
+![](../maps-gridded/figures/coweeta-metrics-01.png)
 
 
 Here is another approach, based on grids of soil properties, climate, and land use, sampled from within the lower '48 states:
 
-![](maps-gridded/figures/gz-by-source-fact-1.png)
+![](../maps-gridded/figures/gz-by-source-fact-1.png)
 
   * NLCD: 10m resolution, detailed landcover mapping
   * PRISM: 800m resolution, climate data
