@@ -21,6 +21,16 @@ https://scottaaronson.blog/?p=762
 https://jakubnowosad.com/iiasa2023/#/title-slide
 
 
+IPA concept:
+  * https://iopscience.iop.org/article/10.1088/1748-9326/abbb00/pdf
+  * https://www.publish.csiro.au/sr/pdf/SR9760291
+
+
+Information Theory as applied to color science (?), note use of sRGB color coordinates and lack of CIE2000:
+https://derivativedribble.wordpress.com/2018/11/21/using-information-theory-to-explain-color-perception/
+
+https://opg.optica.org/josaa/abstract.cfm?uri=josaa-29-12-2557
+
 
 
 # To-Sort
