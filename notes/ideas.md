@@ -69,14 +69,15 @@ Profile #6 is made up of uniform random values, profile #7 is a sorted version o
 
 We don't have to use gzip, but its ubiquitous use and availability makes it an ideal candidate. I too wonder about the relationship between "information" ~ gzip size. Is it continuous? We would need some detailed investigation to be sure, maybe even consulting with a CS expert. Simple experiments in R via memCompress() are helpful, but I'd rather not have to reverse-engineer it.
 
-gzip will work on any data source that can be represented as text or raw bytes. Check this out:
+gzip / bzip2 / xz compression can be applied to many different types of data. 
 
-![](../compression-information-content/figures/lorem-test.png)
+![](../compression-information-content/figures/gzip-demonstration.png)
+![](../compression-information-content/figures/bzip2-demonstration.png)
 
 This tracks intuition and the curves appear continuous. Note log-log scales.
 
-The space between "red" (single replicated value) and "blue" (uniform noise) represents the possible domain over which "information", "complexity", etc. can be described. I think. R code attached.
-
+The differences between gzip vs. bzip2 when data are "small" are interesting. Also, the flat bzip2(replicated constant) curve suggests that it can better deal with long-range patterns.
+ 
 As for the last question about "preserving meaning", that is a tough one. It is lossless compression, and 100% reversible, so nothing is lost. However, and this is a serious downside, I very much doubt that one could interpret the compressed bytes. In my mind, this is similar (?) to the flattening of high-D space → 2D space via principle coordinates (MDS) and attempting to derive meaning from the new scores. Maybe.
 
 
