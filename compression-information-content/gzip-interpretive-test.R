@@ -3,9 +3,38 @@
 
 
 ## TODO: 
-## * generalize into a new function
-## * compare gzip vs. bzip2 --> interesting differences when data are "small"
-## * short-range vs. long-range patterns
+# * generalize into a new function
+# * compare gzip vs. bzip2 --> interesting differences when data are "small"
+# * short-range vs. long-range patterns
+# * try cyclic (sine wave) and harmonic patterns
+
+letter.freq <- read.table(textConnection('E	12.02
+T	9.10
+A	8.12
+O	7.68
+I	7.31
+N	6.95
+S	6.28
+R	6.02
+H	5.92
+D	4.32
+L	3.98
+U	2.88
+C	2.71
+M	2.61
+F	2.30
+Y	2.11
+W	2.09
+G	2.03
+P	1.82
+B	1.49
+V	1.11
+K	0.69
+X	0.17
+Q	0.11
+J	0.10
+Z	0.07'), header = FALSE, sep = '\t')
+names(letter.freq) <- c('letter', 'freq')
 
 
 library(lorem)
@@ -22,7 +51,7 @@ s <- c(10, 30, 50, 100, 300, 500, 1000, 3000, 5000, 10000, 30000, 50000)
 
 
 sim.letters <- sapply(s, function(i) {
-  a <- sample(letters, size = i, replace = TRUE)
+  a <- sample(letter.freq$letter, size = i, prob = letter.freq$freq, replace = TRUE)
   l <- length(memCompress(paste0(a, collapse = ''), type = 'gzip'))
   l / 1024
 })
@@ -63,13 +92,13 @@ par(mar = c(4.5, 4.5, 3, 1), bg = 'black', fg = 'white', col.axis = 'white', col
 
 plot(
   s, 
-  x, 
+  s, 
   type = 'n', 
   las = 1, 
   ylab = 'gzip Compressed Size (kb)', 
   xlab = 'Number of Samples with Replacement',
   log = 'xy',
-  ylim = c(0.01, max(md)),
+  ylim = c(0.01, max(sim.md)),
   axes = FALSE
 )
 
