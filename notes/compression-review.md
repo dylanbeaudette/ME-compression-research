@@ -1,6 +1,14 @@
 # Compression
 
 
+## To Sort
+  * https://aclanthology.org/2023.findings-acl.426.pdf
+  * https://rdrr.io/cran/shipunov/man/NC.dist.html
+  * https://kenschutte.com/gzip-knn-paper/
+  * https://codeconfessions.substack.com/p/decoding-the-acl-paper-gzip-and-knn
+  * https://github.com/cyrilou242/ftcc
+
+
 ## gzip
 https://en.wikipedia.org/wiki/Gzip
 
