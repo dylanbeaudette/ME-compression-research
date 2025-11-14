@@ -1,3 +1,8 @@
+
+# try lz4 compression
+# https://github.com/coolbutuseless/lz4lite
+
+
 library(aqp)
 library(mvtnorm)
 library(hexbin)
