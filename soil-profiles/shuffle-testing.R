@@ -157,7 +157,7 @@ plotProfileDendrogram(g, cluster::diana(d), name = NA, depth.axis = FALSE, scali
 # expand dist object to full matrix form of the pair-wise distances 
 m <- as.matrix(d)
 # copy short IDs from Soil Profile Collection to full distance matrix
-dimnames(m) <- list(g$.oldID, g$.oldID)
+# dimnames(m) <- list(g$.oldID, g$.oldID)
 
 # invert device foreground / background colors for an artistic effect
 # use colors from The Life Aquatic
@@ -178,11 +178,11 @@ corrplot(
 
 .p <- profile_id(o)
 
+# for a given ID:
+# pair-wise distances, off-diagonal, upper triangle
 D <- lapply(.p, function(i) {
   
   idx <- grep(i, profile_id(g), fixed = TRUE)
-  
-  # dimnames(m[idx, idx])
   
   m.i <- m[idx, idx]
   v.i <- m.i[upper.tri(m.i, diag = FALSE)]
@@ -194,7 +194,54 @@ names(D) <- .p
 dev.off()
 
 boxplot(D, las = 1, main = 'Within-Class Distances')
-# boxplot(D1, las = 1)
+
+
+# for a given ID:
+# pair-wise distances between reference and all other profiles
+D <- lapply(.p, function(i) {
+  
+  ref.idx <- which(profile_id(g) == i)
+  
+  re <- sprintf('%s-', i)
+  idx <- grep(pattern = re, x = profile_id(g), fixed = TRUE)
+  
+  res <- m[ref.idx, idx]
+  
+  return(res)
+})
+
+names(D) <- .p
+boxplot(D, las = 1, main = 'Within-Class Distances, Relative to Reference Profile')
+
+
+# TODO: distances to centroid in reduced space
+D <- lapply(.p, function(i) {
+  
+  idx <- grep(i, profile_id(g), fixed = TRUE)
+  
+  m.i <- m[idx, idx]
+  
+  # replace any 0-distances with "small" distance
+  m.i[which(m.i)]
+  
+  
+  d.i <- as.dist(m.i)
+  
+  mds <- MASS::isoMDS(d.i)$points
+  
+  dc <- sweep(mds[-1, ], MARGIN = 2, STATS = mds[1, ], FUN = '-')^2
+  
+  res <- sqrt(rowSums(dc))
+  
+  return(res)
+})
+
+names(D) <- .p
+
+boxplot(D, las = 1, main = 'Within-Class Distances, Relative to NMDS centroid')
+
+
+
 
 
 layout(matrix(c(1, 2), byrow = TRUE), heights = c(1.5, 1))
